@@ -35,11 +35,10 @@ export default function Navbar() {
   };
 
   return (
-    <header className="fixed top-4 left-0 right-0 z-50 flex justify-center items-center pointer-events-none px-4 sm:px-6">
+    <header className="fixed top-3 sm:top-4 left-0 right-0 z-50 flex justify-center items-center pointer-events-none px-3 sm:px-6">
       <nav
         aria-label="Volt Fitness Navigation"
-        className="volt-glass-capsule pointer-events-auto relative w-full max-w-[1340px] h-[72px] rounded-full flex items-center justify-between select-none"
-        style={{ paddingLeft: '52px', paddingRight: '52px' }}
+        className="volt-glass-capsule pointer-events-auto relative w-full max-w-[1340px] h-[60px] sm:h-[72px] rounded-full flex items-center justify-between select-none px-4 sm:px-8 lg:px-[52px]"
       >
         {/* Laser neon arcs at left & right ends */}
         <div aria-hidden="true" className="capsule-laser-rim-left" />
@@ -55,10 +54,8 @@ export default function Navbar() {
             <img
               src="/images/volt-brand-exact.png"
               alt="Volt Fitness Logo"
-              className="w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              className="w-auto h-8 sm:h-12 max-w-[130px] sm:max-w-[185px] object-contain transition-transform duration-300 group-hover:scale-105"
               style={{
-                height: '48px',
-                maxWidth: '185px',
                 mixBlendMode: 'screen',
                 filter: 'drop-shadow(0 0 8px rgba(57, 255, 20, 0.4))',
               }}
@@ -69,7 +66,7 @@ export default function Navbar() {
         {/* Divider 1 */}
         <div
           aria-hidden="true"
-          className="hidden md:block shrink-0"
+          className="hidden lg:block shrink-0"
           style={{
             width: '1px',
             height: '40px',
@@ -156,7 +153,7 @@ export default function Navbar() {
         {/* Divider 2 */}
         <div
           aria-hidden="true"
-          className="hidden md:block shrink-0"
+          className="hidden lg:block shrink-0"
           style={{
             width: '1px',
             height: '40px',

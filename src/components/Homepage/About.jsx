@@ -118,7 +118,7 @@ export default function About() {
         {/* Heading */}
         <h2
           ref={headingRef}
-          className="font-['Oswald',sans-serif] text-5xl sm:text-6xl lg:text-7xl font-bold uppercase leading-[1.05] tracking-tight mb-16"
+          className="font-['Oswald',sans-serif] text-4xl sm:text-6xl lg:text-7xl font-bold uppercase leading-[1.05] tracking-tight mb-12 sm:mb-16"
         >
           <span className="text-white">About</span>
           <br />
@@ -126,17 +126,17 @@ export default function About() {
         </h2>
 
         {/* Content grid */}
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-start">
           {/* Left — Description */}
           <div ref={textRef} className="space-y-6">
-            <p className="font-['Inter',sans-serif] text-lg sm:text-xl text-neutral-300 leading-relaxed">
+            <p className="font-['Inter',sans-serif] text-base sm:text-xl text-neutral-300 leading-relaxed">
               VOLT FITNESS is more than a gym — it's a premium training
               destination engineered for those who refuse to settle. Every
               square foot is designed to fuel performance, from our
               state-of-the-art equipment floor to our dedicated functional
               training zones.
             </p>
-            <p className="font-['Inter',sans-serif] text-base text-neutral-400 leading-relaxed">
+            <p className="font-['Inter',sans-serif] text-sm sm:text-base text-neutral-400 leading-relaxed">
               Backed by world-class trainers and an unwavering commitment to
               excellence, we deliver a fitness experience that matches your
               ambition. Whether you're chasing a personal record or building
@@ -146,23 +146,23 @@ export default function About() {
             {/* Quote */}
             <blockquote
               ref={quoteRef}
-              className="mt-10 border-l-2 border-[#AAFF00] pl-5"
+              className="mt-8 sm:mt-10 border-l-2 border-[#AAFF00] pl-4 sm:pl-5"
             >
-              <p className="font-['Oswald',sans-serif] text-2xl sm:text-3xl text-white/90 uppercase tracking-wide italic">
+              <p className="font-['Oswald',sans-serif] text-xl sm:text-3xl text-white/90 uppercase tracking-wide italic">
                 "Where strength meets determination"
               </p>
             </blockquote>
           </div>
 
           {/* Right — Feature grid */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {features.map((feat, i) => {
               const Icon = feat.icon;
               return (
                 <div
                   key={feat.title}
                   ref={(el) => (cardsRef.current[i] = el)}
-                  className="group bg-[#111111] border border-[#1A1A1A] rounded-2xl p-6 flex flex-col items-start gap-4 transition-all duration-300 hover:border-[#AAFF00]/30 hover:shadow-[0_0_30px_rgba(170,255,0,0.06)] hover:-translate-y-1"
+                  className="group bg-[#111111] border border-[#1A1A1A] rounded-2xl p-5 sm:p-6 flex flex-col items-start gap-4 transition-all duration-300 hover:border-[#AAFF00]/30 hover:shadow-[0_0_30px_rgba(170,255,0,0.06)] hover:-translate-y-1"
                 >
                   <div className="w-12 h-12 rounded-xl bg-[#AAFF00]/10 flex items-center justify-center transition-colors duration-300 group-hover:bg-[#AAFF00]/20">
                     <Icon className="w-6 h-6 text-[#AAFF00]" strokeWidth={1.8} />

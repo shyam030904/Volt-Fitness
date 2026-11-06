@@ -8,7 +8,7 @@ const galleryItems = [
   {
     label: 'STRENGTH ZONE',
     gradient: 'linear-gradient(135deg, #1a1a1a 0%, #0d1a00 50%, #1a1a1a 100%)',
-    span: 'row-span-2',
+    span: 'sm:row-span-2',
     accent: 'radial-gradient(circle at 30% 70%, rgba(170,255,0,0.15) 0%, transparent 60%)',
   },
   {
@@ -26,7 +26,7 @@ const galleryItems = [
   {
     label: 'YOGA STUDIO',
     gradient: 'linear-gradient(45deg, #0a0a0a 0%, #151510 50%, #111111 100%)',
-    span: 'row-span-2',
+    span: 'sm:row-span-2',
     accent: 'radial-gradient(circle at 70% 40%, rgba(170,255,0,0.1) 0%, transparent 50%)',
   },
   {
@@ -38,7 +38,7 @@ const galleryItems = [
   {
     label: 'FREE WEIGHTS',
     gradient: 'linear-gradient(160deg, #111111 0%, #1a1a0d 40%, #0a0a0a 100%)',
-    span: 'row-span-2',
+    span: 'sm:row-span-2',
     accent: 'radial-gradient(circle at 60% 80%, rgba(170,255,0,0.16) 0%, transparent 50%)',
   },
   {
@@ -108,7 +108,7 @@ export default function Gallery() {
       </div>
 
       {/* Masonry Grid */}
-      <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-[180px] sm:auto-rows-[200px] md:auto-rows-[220px] gap-3 md:gap-4">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-[160px] sm:auto-rows-[200px] md:auto-rows-[220px] gap-3 md:gap-4">
         {galleryItems.map((item, i) => (
           <div
             key={item.label}
@@ -159,7 +159,7 @@ export default function Gallery() {
             {/* Label */}
             <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
               <span
-                className="text-white text-sm sm:text-base md:text-lg lg:text-xl font-bold uppercase tracking-[0.15em] opacity-0 translate-y-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0"
+                className="text-white text-sm sm:text-base md:text-lg lg:text-xl font-bold uppercase tracking-[0.15em] opacity-90 sm:opacity-0 translate-y-0 sm:translate-y-4 transition-all duration-500 sm:group-hover:opacity-100 sm:group-hover:translate-y-0"
                 style={{ fontFamily: "'Oswald', sans-serif" }}
               >
                 {item.label}

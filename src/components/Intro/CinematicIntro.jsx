@@ -3,24 +3,19 @@ import gsap from 'gsap'
 
 const CinematicIntro = ({ onComplete }) => {
   const containerRef = useRef(null)
-  const videoRef = useRef(null)
   const addressBarRef = useRef(null)
   const cursorRef = useRef(null)
   const [typedText, setTypedText] = useState('')
-  const [videoStarted, setVideoStarted] = useState(false)
   const isSkippedRef = useRef(false)
   const timelineRef = useRef(null)
 
   // Skip immediately on any user action
-  const handleSkip = useCallback(() => {
+  const handleComplete = useCallback(() => {
     if (isSkippedRef.current) return
     isSkippedRef.current = true
 
     if (timelineRef.current) {
       timelineRef.current.kill()
-    }
-    if (videoRef.current) {
-      videoRef.current.pause()
     }
 
     gsap.to(containerRef.current, {
@@ -32,32 +27,6 @@ const CinematicIntro = ({ onComplete }) => {
     })
   }, [onComplete])
 
-  // Play video with audio at 50% volume
-  const playVideo = useCallback(() => {
-    setVideoStarted(true)
-    const vid = videoRef.current
-    if (!vid) return
-
-    vid.volume = 0.5
-    vid.muted = false
-
-    const playPromise = vid.play()
-    if (playPromise !== undefined) {
-      playPromise.catch((err) => {
-        console.warn('Audio policy catch:', err)
-        const resumeOnClick = () => {
-          if (videoRef.current && !isSkippedRef.current) {
-            videoRef.current.volume = 0.5
-            videoRef.current.muted = false
-            videoRef.current.play().catch(() => {})
-          }
-          window.removeEventListener('click', resumeOnClick)
-        }
-        window.addEventListener('click', resumeOnClick, { once: true })
-      })
-    }
-  }, [])
-
   useEffect(() => {
     const tl = gsap.timeline()
     timelineRef.current = tl
@@ -67,12 +36,12 @@ const CinematicIntro = ({ onComplete }) => {
     // 1. Address bar appears
     tl.fromTo(
       addressBarRef.current,
-      { opacity: 0, y: -30, scale: 0.9 },
+      { opacity: 0, y: -20, scale: 0.92 },
       {
         opacity: 1,
         y: 0,
         scale: 1,
-        duration: 0.3,
+        duration: 0.35,
         ease: 'power3.out',
       },
       0.05
@@ -91,8 +60,8 @@ const CinematicIntro = ({ onComplete }) => {
       0.1
     )
 
-    // 2. Fast type "voltfitness.in"
-    const typeStart = 0.35
+    // 2. Fast type "voltfitness.in" into search bar
+    const typeStart = 0.4
     targetUrl.split('').forEach((char, index) => {
       tl.call(
         () => setTypedText((prev) => prev + char),
@@ -103,43 +72,32 @@ const CinematicIntro = ({ onComplete }) => {
 
     const typeEnd = typeStart + targetUrl.length * 0.045
 
-    // 3. Address bar glows neon-green
+    // 3. Address bar glows neon-green on search completion
     tl.to(
       addressBarRef.current,
       {
         borderColor: '#AAFF00',
-        boxShadow: '0 0 35px rgba(170, 255, 0, 0.9), inset 0 0 15px #AAFF00',
-        duration: 0.15,
-        ease: 'power2.in',
+        boxShadow: '0 0 35px rgba(170, 255, 0, 0.9), inset 0 0 15px rgba(170, 255, 0, 0.3)',
+        scale: 1.02,
+        duration: 0.2,
+        ease: 'power2.out',
       },
-      typeEnd + 0.05
+      typeEnd + 0.1
     )
 
-    // 4. Address bar dissolves
-    tl.to(
-      addressBarRef.current,
-      {
-        opacity: 0,
-        scale: 0.85,
-        y: -25,
-        filter: 'blur(8px)',
-        duration: 0.25,
-        ease: 'power2.in',
-      },
-      typeEnd + 0.2
-    )
+    // 4. Brief hold to view the entered search, then transition directly to site
+    tl.call(() => {
+      handleComplete()
+    }, null, typeEnd + 0.45)
 
-    // 5. Trigger video immediately
-    tl.call(() => playVideo(), null, typeEnd + 0.15)
-
-    // Video is cut at 6.2s, so after 7.5s maximum, automatically guarantee transition
+    // Safety fallback
     const safetyTimer = setTimeout(() => {
-      handleSkip()
-    }, 7800)
+      handleComplete()
+    }, 2500)
 
     // Global listener: ANY key skips intro
     const handleKeyDown = () => {
-      handleSkip()
+      handleComplete()
     }
     window.addEventListener('keydown', handleKeyDown)
 
@@ -148,40 +106,30 @@ const CinematicIntro = ({ onComplete }) => {
       tl.kill()
       window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [handleSkip, playVideo])
+  }, [handleComplete])
 
   return (
     <div
       ref={containerRef}
-      onClick={handleSkip}
+      onClick={handleComplete}
       className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden bg-black select-none cursor-pointer"
-      title="Click or press any key to skip intro"
+      title="Click or press any key to enter immediately"
     >
-      {/* Dynamic 6s Action Video (zero freezing, smooth fadeout, 50% volume AAC audio) */}
-      <video
-        ref={videoRef}
-        src="/intro-clean.mp4"
-        playsInline
-        preload="auto"
-        onEnded={handleSkip}
-        onError={() => handleSkip()}
-        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
-          videoStarted ? 'opacity-100' : 'opacity-0'
-        }`}
-      />
-
-      {/* Cinematic dark vignette */}
+      {/* Cinematic dark radial background */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 65%, rgba(0,0,0,0.7) 100%)',
+          background: 'radial-gradient(ellipse at center, rgba(18, 30, 20, 0.6) 0%, rgba(10, 10, 10, 0.95) 70%, #000000 100%)',
         }}
       />
 
-      {/* Capsule Address Bar */}
+      {/* Ambient neon pulse behind search bar */}
+      <div className="absolute w-96 h-48 rounded-full bg-[#AAFF00]/10 blur-3xl pointer-events-none" />
+
+      {/* Capsule Search / Address Bar */}
       <div
         ref={addressBarRef}
-        className="absolute top-[32%] z-50 flex items-center gap-3 px-6 py-3 rounded-full bg-[#121212]/95 border border-[#AAFF00]/40 shadow-[0_0_25px_rgba(170,255,0,0.25)] backdrop-blur-md min-w-[300px] sm:min-w-[420px]"
+        className="relative z-50 flex items-center gap-2.5 sm:gap-3 px-4 sm:px-6 py-3 sm:py-3.5 rounded-full bg-[#121212]/95 border border-[#AAFF00]/40 shadow-[0_0_25px_rgba(170,255,0,0.25)] backdrop-blur-md w-[92vw] max-w-[440px] sm:w-auto sm:min-w-[440px]"
       >
         <div className="flex gap-2 mr-2">
           <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F56]" />
@@ -190,7 +138,7 @@ const CinematicIntro = ({ onComplete }) => {
         </div>
         <div className="flex items-center text-xs text-neutral-400 font-mono tracking-wider flex-1">
           <span className="text-neutral-500 mr-1.5">https://</span>
-          <span className="text-[#AAFF00] font-semibold text-sm tracking-wide">
+          <span className="text-[#AAFF00] font-semibold text-sm sm:text-base tracking-wide">
             {typedText}
           </span>
           <span

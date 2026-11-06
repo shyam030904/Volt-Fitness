@@ -198,12 +198,12 @@ export default function Hero() {
       />
 
       {/* === Main Content === */}
-      <div className="relative z-10 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 flex flex-col items-center text-center">
+      <div className="relative z-10 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36 md:pt-40 pb-16 flex flex-col items-center text-center">
         {/* Small tag */}
-        <div className="mb-6 flex items-center gap-2 px-4 py-1.5 border border-[#AAFF00]/20 rounded-full bg-[#AAFF00]/5">
-          <Zap className="w-3.5 h-3.5 text-[#AAFF00] fill-[#AAFF00]" />
+        <div className="mb-6 flex items-center gap-2 px-3.5 sm:px-4 py-1.5 border border-[#AAFF00]/20 rounded-full bg-[#AAFF00]/5 max-w-full">
+          <Zap className="w-3.5 h-3.5 text-[#AAFF00] fill-[#AAFF00] shrink-0" />
           <span
-            className="text-xs tracking-[0.2em] uppercase text-[#AAFF00] font-medium"
+            className="text-[11px] sm:text-xs tracking-[0.15em] sm:tracking-[0.2em] uppercase text-[#AAFF00] font-medium truncate"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
             Premium Fitness Experience
@@ -214,13 +214,13 @@ export default function Hero() {
         <h1 className="leading-[0.9] mb-6" style={{ fontFamily: "'Oswald', sans-serif" }}>
           <span
             ref={headingLine1Ref}
-            className="block text-7xl sm:text-8xl md:text-9xl font-bold text-white tracking-tight"
+            className="block text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-white tracking-tight"
           >
             UNLEASH
           </span>
           <span
             ref={headingLine2Ref}
-            className="block text-7xl sm:text-8xl md:text-9xl font-bold tracking-tight"
+            className="block text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight"
           >
             <span className="text-white">YOUR </span>
             <span className="text-[#AAFF00] drop-shadow-[0_0_30px_rgba(170,255,0,0.3)]">
@@ -232,18 +232,18 @@ export default function Hero() {
         {/* Subtitle */}
         <p
           ref={subtitleRef}
-          className="max-w-xl text-base sm:text-lg text-gray-400 mb-10 leading-relaxed tracking-wide"
+          className="max-w-xl text-sm sm:text-base md:text-lg text-gray-400 mb-8 sm:mb-10 leading-relaxed tracking-wide px-2"
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
           Transform your body. Elevate your mind. Dominate your goals.
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row items-center gap-4 mb-20">
+        <div className="flex flex-col sm:flex-row items-center gap-4 mb-14 md:mb-20 w-full sm:w-auto max-w-xs sm:max-w-none">
           <a
             ref={(el) => (buttonsRef.current[0] = el)}
             href="#membership"
-            className="group flex items-center gap-2 px-8 py-3.5 bg-[#AAFF00] text-black text-sm font-bold tracking-wider uppercase rounded-sm hover:bg-[#c4ff4d] hover:shadow-[0_0_30px_rgba(170,255,0,0.35)] transition-all duration-300"
+            className="w-full sm:w-auto justify-center group flex items-center gap-2 px-8 py-3.5 bg-[#AAFF00] text-black text-sm font-bold tracking-wider uppercase rounded-sm hover:bg-[#c4ff4d] hover:shadow-[0_0_30px_rgba(170,255,0,0.35)] transition-all duration-300"
             style={{ fontFamily: "'Oswald', sans-serif" }}
           >
             START YOUR JOURNEY
@@ -252,7 +252,7 @@ export default function Hero() {
           <a
             ref={(el) => (buttonsRef.current[1] = el)}
             href="#programs"
-            className="group flex items-center gap-2 px-8 py-3.5 border border-white/20 text-white text-sm font-bold tracking-wider uppercase rounded-sm hover:border-[#AAFF00]/50 hover:text-[#AAFF00] transition-all duration-300"
+            className="w-full sm:w-auto justify-center group flex items-center gap-2 px-8 py-3.5 border border-white/20 text-white text-sm font-bold tracking-wider uppercase rounded-sm hover:border-[#AAFF00]/50 hover:text-[#AAFF00] transition-all duration-300"
             style={{ fontFamily: "'Oswald', sans-serif" }}
           >
             EXPLORE PROGRAMS
