@@ -1,0 +1,166 @@
+@import "tailwindcss";
+
+@theme {
+  --color-volt: #AAFF00;
+  --color-volt-dark: #88CC00;
+  --color-volt-light: #CCFF44;
+  --color-neon-green: #39FF14;
+  --color-dark: #0A0A0A;
+  --color-dark-card: #111111;
+  --color-dark-border: #1A1A1A;
+  --color-dark-surface: #141414;
+  --font-heading: 'Oswald', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+/* =============================================
+   BASE LAYER — must be here so Tailwind utility
+   classes (px-*, py-*, gap-*, etc.) win in v4.
+   ============================================= */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #0A0A0A;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0A0A0A;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #AAFF00;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #CCFF44;
+  }
+
+  /* Selection */
+  ::selection {
+    background: rgba(170, 255, 0, 0.3);
+    color: #ffffff;
+  }
+}
+
+/* ==========================================================
+   STITCH EXACT NAVBAR GLASSMORPHISM & NEON EFFECTS
+   ========================================================== */
+
+/* Capsule Glassmorphism and Neon Ambient Reflections */
+.volt-glass-capsule {
+  background: rgba(10, 18, 12, 0.82);
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  border: 1px solid rgba(57, 255, 20, 0.35);
+  box-shadow:
+    0 0 30px -5px rgba(57, 255, 20, 0.18),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 24px 0 rgba(57, 255, 20, 0.06);
+  position: relative;
+  overflow: visible;
+}
+
+/* ---- Laser Arc Left ---- */
+.capsule-laser-rim-left {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 38px;
+  border-top-left-radius: 9999px;
+  border-bottom-left-radius: 9999px;
+  border-left: 3px solid rgba(57, 255, 20, 0.9);
+  border-top: 1.5px solid transparent;
+  border-bottom: 1.5px solid transparent;
+  mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+  box-shadow:
+    -3px 0 18px 4px rgba(57, 255, 20, 0.7),
+    inset 4px 0 12px rgba(57, 255, 20, 0.4);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ---- Laser Arc Right ---- */
+.capsule-laser-rim-right {
+  position: absolute;
+  right: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 38px;
+  border-top-right-radius: 9999px;
+  border-bottom-right-radius: 9999px;
+  border-right: 3px solid rgba(57, 255, 20, 0.9);
+  border-top: 1.5px solid transparent;
+  border-bottom: 1.5px solid transparent;
+  mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+  box-shadow:
+    3px 0 18px 4px rgba(57, 255, 20, 0.7),
+    inset -4px 0 12px rgba(57, 255, 20, 0.4);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Active Glowing Tab Pill */
+.active-nav-glow {
+  border: 1.5px solid #39FF14;
+  background: rgba(57, 255, 20, 0.10);
+  box-shadow:
+    0 0 16px rgba(57, 255, 20, 0.45),
+    inset 0 0 8px rgba(57, 255, 20, 0.15);
+  border-radius: 9999px;
+  color: #39FF14 !important;
+  font-weight: 500;
+}
+
+/* Interactive Tab Item Hover */
+.nav-tab-link {
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.nav-tab-link:not(.active-nav-glow):hover {
+  color: #39FF14;
+  text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
+}
+.nav-tab-link:not(.active-nav-glow):hover svg {
+  color: #39FF14;
+  filter: drop-shadow(0 0 5px rgba(57, 255, 20, 0.6));
+}
+
+/* Join Now CTA Glow */
+.cta-neon-capsule {
+  border: 1.5px solid #39FF14;
+  color: #39FF14;
+  background: rgba(0, 0, 0, 0.8);
+  box-shadow:
+    0 0 22px rgba(57, 255, 20, 0.35),
+    inset 0 0 6px rgba(57, 255, 20, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.cta-neon-capsule:hover {
+  background: rgba(57, 255, 20, 0.12);
+  box-shadow:
+    0 0 32px 6px rgba(57, 255, 20, 0.55),
+    inset 0 0 14px rgba(57, 255, 20, 0.25);
+  transform: translateY(-1px);
+}
