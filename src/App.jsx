@@ -9,6 +9,7 @@ import Membership from './components/Homepage/Membership'
 import Gallery from './components/Homepage/Gallery'
 import Contact from './components/Homepage/Contact'
 import Footer from './components/Layout/Footer'
+import WhatsAppButton from './components/Layout/WhatsAppButton'
 
 function App() {
   const [introComplete, setIntroComplete] = useState(false)
@@ -37,6 +38,7 @@ function App() {
           <Contact />
         </main>
         <Footer />
+        <WhatsAppButton />
       </div>
     </>
   )

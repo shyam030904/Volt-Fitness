@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Home, Dumbbell, Crown, Image as ImageIcon, Mail, MapPin, ArrowRight, Menu, X } from 'lucide-react';
+import { Home, Dumbbell, Crown, Image as ImageIcon, Calendar, MapPin, ArrowRight, Menu, X } from 'lucide-react';
 
 const navItems = [
   { id: 'home', label: 'Home', href: '#home', icon: Home },
   { id: 'trainers', label: 'Trainers', href: '#trainers', icon: Dumbbell },
   { id: 'membership', label: 'Membership', href: '#membership', icon: Crown },
   { id: 'gallery', label: 'Gallery', href: '#gallery', icon: ImageIcon },
-  { id: 'contact', label: 'Contact', href: '#contact', icon: Mail },
+  { id: 'events', label: 'Events', href: '#events', icon: Calendar },
 ];
 
 export default function Navbar() {
@@ -166,7 +166,7 @@ export default function Navbar() {
         {/* ================= JOIN NOW CTA ================= */}
         <div className="flex items-center shrink-0" style={{ zIndex: 2 }}>
           <a
-            href="#membership"
+            href="#contact"
             className="cta-neon-capsule group rounded-full hidden sm:flex items-center cursor-pointer select-none"
             style={{
               paddingLeft: '28px',
@@ -260,7 +260,7 @@ export default function Navbar() {
           </a>
 
           <a
-            href="#membership"
+            href="#contact"
             onClick={() => setIsMobileMenuOpen(false)}
             className="cta-neon-capsule flex items-center justify-center rounded-full text-base font-semibold tracking-wide"
             style={{

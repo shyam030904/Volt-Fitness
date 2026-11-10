@@ -57,49 +57,100 @@ const galleryItems = [
 
 export default function Gallery() {
   const sectionRef = useRef(null);
+  const heading1ScrollRef = useRef(null);
+  const heading1EnterRef = useRef(null);
+  const heading2ScrollRef = useRef(null);
+  const heading2EnterRef = useRef(null);
   const cardsRef = useRef([]);
 
   useEffect(() => {
-    const cards = cardsRef.current.filter(Boolean);
+    const ctx = gsap.context(() => {
+      // Heading entrance from corners
+      gsap.from(heading1EnterRef.current, {
+        x: -240,
+        y: -80,
+        opacity: 0,
+        duration: 0.9,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 85%' },
+      });
+      gsap.from(heading2EnterRef.current, {
+        x: 240,
+        y: 80,
+        opacity: 0,
+        duration: 0.9,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 85%' },
+      });
 
-    gsap.set(cards, { opacity: 0, y: 60, scale: 0.95 });
-
-    gsap.to(cards, {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      duration: 0.8,
-      ease: 'power3.out',
-      stagger: 0.12,
-      scrollTrigger: {
+      // Heading scroll exit & return
+      const headingScrollConfig = {
         trigger: sectionRef.current,
-        start: 'top 80%',
-        end: 'bottom 20%',
-        toggleActions: 'play none none none',
-      },
-    });
+        start: 'top top',
+        end: 'bottom 40%',
+        scrub: 1,
+      };
+      gsap.to(heading1ScrollRef.current, {
+        x: -280,
+        y: -60,
+        opacity: 0,
+        ease: 'none',
+        scrollTrigger: headingScrollConfig,
+      });
+      gsap.to(heading2ScrollRef.current, {
+        x: 280,
+        y: 60,
+        opacity: 0,
+        ease: 'none',
+        scrollTrigger: headingScrollConfig,
+      });
 
-    return () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-    };
+      const cards = cardsRef.current.filter(Boolean);
+      gsap.from(cards, {
+        opacity: 0,
+        y: 60,
+        scale: 0.95,
+        duration: 0.8,
+        ease: 'power3.out',
+        stagger: 0.12,
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 80%',
+          toggleActions: 'play none none none',
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
     <section
       id="gallery"
       ref={sectionRef}
-      className="relative py-20 md:py-28 px-4 sm:px-6 lg:px-8"
+      className="relative scroll-mt-24 sm:scroll-mt-28 md:scroll-mt-32 py-20 md:py-28 px-4 sm:px-6 lg:px-8"
       style={{ backgroundColor: '#0A0A0A' }}
     >
       {/* Section Heading */}
-      <div className="max-w-7xl mx-auto mb-14 md:mb-20">
+      <div className="max-w-7xl mx-auto mb-14 md:mb-20 overflow-visible select-none">
         <h2
           className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold uppercase leading-[0.9] tracking-tight"
           style={{ fontFamily: "'Oswald', sans-serif" }}
         >
-          <span className="text-white">OUR</span>
-          <br />
-          <span style={{ color: '#AAFF00' }}>GALLERY</span>
+          <span className="block">
+            <span ref={heading1ScrollRef} className="block will-change-transform">
+              <span ref={heading1EnterRef} className="block text-white will-change-transform">
+                OUR
+              </span>
+            </span>
+          </span>
+          <span className="block mt-1">
+            <span ref={heading2ScrollRef} className="block will-change-transform">
+              <span ref={heading2EnterRef} className="block will-change-transform" style={{ color: '#AAFF00' }}>
+                GALLERY
+              </span>
+            </span>
+          </span>
         </h2>
         <div
           className="mt-4 w-20 h-1"
@@ -112,7 +163,9 @@ export default function Gallery() {
         {galleryItems.map((item, i) => (
           <div
             key={item.label}
-            ref={(el) => (cardsRef.current[i] = el)}
+            ref={(el) => {
+              cardsRef.current[i] = el;
+            }}
             className={`group relative overflow-hidden rounded-lg cursor-pointer ${item.span}`}
             style={{
               background: item.gradient,

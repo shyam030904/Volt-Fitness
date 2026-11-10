@@ -27,9 +27,6 @@ const YoutubeIcon = ({ size = 18 }) => (
   </svg>
 );
 
-const quickLinks = ['Home', 'About', 'Programs', 'Trainers', 'Membership'];
-const programs = ['Strength Training', 'HIIT', 'CrossFit', 'Yoga', 'Boxing'];
-
 const socialLinks = [
   { icon: InstagramIcon, label: 'Instagram' },
   { icon: FacebookIcon, label: 'Facebook' },
@@ -44,14 +41,14 @@ export default function Footer() {
       <div className="w-full h-[2px]" style={{ backgroundColor: '#AAFF00' }} />
 
       {/* Main Footer */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-start justify-between">
           {/* Column 1 - Brand */}
-          <div className="sm:col-span-2 lg:col-span-1">
-            <div className="flex items-center gap-1 mb-5">
-              <span className="text-2xl">⚡</span>
+          <div className="max-w-md">
+            <div className="flex items-center gap-1 mb-3">
+              <span className="text-xl">⚡</span>
               <h3
-                className="text-2xl font-bold uppercase tracking-wider text-white"
+                className="text-xl font-bold uppercase tracking-wider text-white"
                 style={{ fontFamily: "'Oswald', sans-serif" }}
               >
                 VOLT{' '}
@@ -59,128 +56,80 @@ export default function Footer() {
               </h3>
             </div>
             <p
-              className="text-gray-500 text-sm leading-relaxed mb-6 max-w-xs"
+              className="text-gray-500 text-xs sm:text-sm leading-relaxed mb-4"
               style={{ fontFamily: "'Inter', sans-serif" }}
             >
               Unleash your potential with cutting-edge equipment, expert
               trainers, and an electrifying atmosphere designed to push your
               limits.
             </p>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
               {socialLinks.map((social) => {
                 const Icon = social.icon;
                 return (
                   <a
                     key={social.label}
-                    href="#"
+                    href="https://www.instagram.com/voltfitness_bhandup?utm_source=ig_web_button_share_sheet&obrf=ZDNlZDc0MzIxNw=="
                     aria-label={social.label}
-                    className="w-10 h-10 rounded-lg flex items-center justify-center text-gray-500 transition-all duration-300 hover:text-[#AAFF00] hover:bg-[#AAFF00]/10"
+                    className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-500 transition-all duration-300 hover:text-[#AAFF00] hover:bg-[#AAFF00]/10"
                     style={{
                       backgroundColor: '#111111',
                       border: '1px solid #1A1A1A',
                     }}
                   >
-                    <Icon size={18} />
+                    <Icon size={16} />
                   </a>
                 );
               })}
             </div>
           </div>
 
-          {/* Column 2 - Quick Links */}
-          <div>
+          {/* Column 2 - Contact */}
+          <div className="md:justify-self-end">
             <h4
-              className="text-white text-sm font-bold uppercase tracking-[0.2em] mb-6"
-              style={{ fontFamily: "'Oswald', sans-serif" }}
-            >
-              Quick Links
-            </h4>
-            <ul className="space-y-3">
-              {quickLinks.map((link) => (
-                <li key={link}>
-                  <a
-                    href="#"
-                    className="text-gray-500 text-sm transition-colors duration-300 hover:text-[#AAFF00]"
-                    style={{ fontFamily: "'Inter', sans-serif" }}
-                  >
-                    {link}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Column 3 - Programs */}
-          <div>
-            <h4
-              className="text-white text-sm font-bold uppercase tracking-[0.2em] mb-6"
-              style={{ fontFamily: "'Oswald', sans-serif" }}
-            >
-              Programs
-            </h4>
-            <ul className="space-y-3">
-              {programs.map((program) => (
-                <li key={program}>
-                  <a
-                    href="#"
-                    className="text-gray-500 text-sm transition-colors duration-300 hover:text-[#AAFF00]"
-                    style={{ fontFamily: "'Inter', sans-serif" }}
-                  >
-                    {program}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Column 4 - Contact */}
-          <div>
-            <h4
-              className="text-white text-sm font-bold uppercase tracking-[0.2em] mb-6"
+              className="text-white text-xs sm:text-sm font-bold uppercase tracking-[0.2em] mb-3"
               style={{ fontFamily: "'Oswald', sans-serif" }}
             >
               Contact
             </h4>
-            <ul className="space-y-4">
-              <li className="flex items-start gap-3">
+            <ul className="space-y-2.5 text-xs sm:text-sm">
+              <li className="flex items-start gap-2.5">
                 <MapPin
-                  size={16}
+                  size={15}
                   className="flex-shrink-0 mt-0.5"
                   style={{ color: '#AAFF00' }}
                 />
                 <span
-                  className="text-gray-500 text-sm leading-relaxed"
+                  className="text-gray-500 leading-relaxed max-w-sm"
                   style={{ fontFamily: "'Inter', sans-serif" }}
                 >
-                  123 Fitness Street, Mumbai,
-                  <br />
-                  Maharashtra 400001
+                  Volt Fitness, Dee Kay Estate, Lake Rd, near Bhandup Police Station, Mumbai, Maharashtra 400078
                 </span>
               </li>
-              <li className="flex items-center gap-3">
+              <li className="flex items-center gap-2.5">
                 <Phone
-                  size={16}
+                  size={15}
                   className="flex-shrink-0"
                   style={{ color: '#AAFF00' }}
                 />
                 <span
-                  className="text-gray-500 text-sm"
+                  className="text-gray-500"
                   style={{ fontFamily: "'Inter', sans-serif" }}
                 >
-                  +91 98765 43210
+                  +91 74003 34222
                 </span>
               </li>
-              <li className="flex items-center gap-3">
+              <li className="flex items-center gap-2.5">
                 <Mail
-                  size={16}
+                  size={15}
                   className="flex-shrink-0"
                   style={{ color: '#AAFF00' }}
                 />
                 <span
-                  className="text-gray-500 text-sm"
+                  className="text-gray-500"
                   style={{ fontFamily: "'Inter', sans-serif" }}
                 >
-                  info@voltfitness.in
+                  voltfitness22@gmail.com
                 </span>
               </li>
             </ul>
@@ -196,18 +145,18 @@ export default function Footer() {
           backgroundColor: '#0A0A0A',
         }}
       >
-        <div className="max-w-7xl mx-auto py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="max-w-7xl mx-auto py-3.5 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p
-            className="text-gray-600 text-xs sm:text-sm"
+            className="text-gray-600 text-xs"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
             © 2024 VOLT FITNESS. All rights reserved.
           </p>
           <p
-            className="text-gray-600 text-xs sm:text-sm"
+            className="text-gray-600 text-xs"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
-            Designed with ⚡ by Volt Team
+            Designed with ⚡
           </p>
         </div>
       </div>

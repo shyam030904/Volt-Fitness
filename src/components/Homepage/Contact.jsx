@@ -5,6 +5,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Web3Forms access key constant
+const WEB3FORMS_ACCESS_KEY = '600b2bb2-2a2a-41df-b4fd-0ac5db8092e2';
+
 const contactInfo = [
   {
     icon: MapPin,
@@ -19,12 +22,12 @@ const contactInfo = [
   {
     icon: Mail,
     label: 'Email',
-    value: 'info@voltfitness.in',
+    value: 'voltfitness22@gmail.com.in',
   },
   {
     icon: Clock,
     label: 'Hours',
-    value: 'Mon-Sat: 5:00 AM - 12:00 PM\nSunday: 6:00 AM - 12:00 PM',
+    value: 'Mon-Sat: 5:00 AM - 12:00 PM\nSunday: 5:30 AM - 11:59 am',
   },
 ];
 
@@ -32,7 +35,10 @@ export default function Contact() {
   const sectionRef = useRef(null);
   const leftRef = useRef(null);
   const rightRef = useRef(null);
-  const headingRef = useRef(null);
+  const heading1ScrollRef = useRef(null);
+  const heading1EnterRef = useRef(null);
+  const heading2ScrollRef = useRef(null);
+  const heading2EnterRef = useRef(null);
 
   const [form, setForm] = useState({
     name: '',
@@ -41,26 +47,148 @@ export default function Contact() {
     message: '',
   });
 
+  const [botcheck, setBotcheck] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState({ type: '', message: '' });
+
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    if (status.message) {
+      setStatus({ type: '', message: '' });
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Spam honeypot check
+    if (botcheck) {
+      setStatus({
+        type: 'error',
+        message: 'Something went wrong. Please try again or call us at +91 74003 34222.',
+      });
+      return;
+    }
+
+    // Validation
+    const trimmedName = form.name.trim();
+    const trimmedEmail = form.email.trim();
+    const trimmedPhone = form.phone.trim();
+    const trimmedMessage = form.message.trim();
+
+    if (!trimmedName) {
+      setStatus({
+        type: 'error',
+        message: 'Please enter your name.',
+      });
+      return;
+    }
+
+    if (!trimmedEmail) {
+      setStatus({
+        type: 'error',
+        message: 'Please enter your email.',
+      });
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(trimmedEmail)) {
+      setStatus({
+        type: 'error',
+        message: 'Please enter a valid email address.',
+      });
+      return;
+    }
+
+    if (trimmedPhone && !/^[0-9+\-\s]+$/.test(trimmedPhone)) {
+      setStatus({
+        type: 'error',
+        message: 'Please enter a valid phone number (digits, spaces, + and - only).',
+      });
+      return;
+    }
+
+    if (!trimmedMessage) {
+      setStatus({
+        type: 'error',
+        message: 'Please enter your message.',
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+    setStatus({ type: '', message: '' });
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: 'New enquiry from Volt Fitness website',
+          from_name: 'Volt Fitness Website',
+          name: trimmedName,
+          email: trimmedEmail,
+          phone: trimmedPhone,
+          message: trimmedMessage,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setStatus({
+          type: 'success',
+          message: "Thanks! We'll get back to you within 24 hours.",
+        });
+        setForm({
+          name: '',
+          email: '',
+          phone: '',
+          message: '',
+        });
+        setBotcheck(false);
+      } else {
+        setStatus({
+          type: 'error',
+          message: 'Something went wrong. Please try again or call us at +91 74003 34222.',
+        });
+      }
+    } catch {
+      setStatus({
+        type: 'error',
+        message: 'Something went wrong. Please try again or call us at +91 74003 34222.',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from(headingRef.current, {
-        opacity: 0,
-        y: 50,
-        duration: 0.8,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-          toggleActions: 'play none none none',
-        },
+      // Heading entrance from corners
+      gsap.from(heading1EnterRef.current, {
+        x: -240, y: -80, opacity: 0, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 85%' },
+      });
+      gsap.from(heading2EnterRef.current, {
+        x: 240, y: 80, opacity: 0, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 85%' },
+      });
+
+      // Heading scroll exit & return
+      const headingScrollConfig = {
+        trigger: sectionRef.current, start: 'top top', end: 'bottom 40%', scrub: 1,
+      };
+      gsap.to(heading1ScrollRef.current, {
+        x: -280, y: -60, opacity: 0, ease: 'none', scrollTrigger: headingScrollConfig,
+      });
+      gsap.to(heading2ScrollRef.current, {
+        x: 280, y: 60, opacity: 0, ease: 'none', scrollTrigger: headingScrollConfig,
       });
 
       gsap.from(leftRef.current, {
@@ -98,18 +226,29 @@ export default function Contact() {
     <section
       id="contact"
       ref={sectionRef}
-      className="relative py-20 md:py-28 px-4 sm:px-6 lg:px-8"
+      className="relative scroll-mt-24 sm:scroll-mt-28 md:scroll-mt-32 pt-28 sm:pt-36 md:pt-40 pb-20 md:pb-28 px-4 sm:px-6 lg:px-8"
       style={{ backgroundColor: '#0A0A0A' }}
     >
       {/* Section Heading */}
-      <div ref={headingRef} className="max-w-7xl mx-auto mb-14 md:mb-20">
+      <div className="max-w-7xl mx-auto mb-10 md:mb-14 overflow-visible select-none">
         <h2
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold uppercase leading-[0.9] tracking-tight"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold uppercase leading-[0.9] tracking-tight"
           style={{ fontFamily: "'Oswald', sans-serif" }}
         >
-          <span className="text-white">GET IN</span>
-          <br />
-          <span style={{ color: '#AAFF00' }}>TOUCH</span>
+          <span className="block">
+            <span ref={heading1ScrollRef} className="block will-change-transform">
+              <span ref={heading1EnterRef} className="block text-white will-change-transform">
+                GET IN
+              </span>
+            </span>
+          </span>
+          <span className="block mt-1">
+            <span ref={heading2ScrollRef} className="block will-change-transform">
+              <span ref={heading2EnterRef} className="block will-change-transform" style={{ color: '#AAFF00' }}>
+                TOUCH
+              </span>
+            </span>
+          </span>
         </h2>
         <div
           className="mt-4 w-20 h-1"
@@ -171,12 +310,24 @@ export default function Contact() {
         <div ref={rightRef}>
           <form
             onSubmit={handleSubmit}
+            noValidate
             className="rounded-xl p-6 md:p-8 space-y-5"
             style={{
               backgroundColor: '#111111',
               border: '1px solid #1A1A1A',
             }}
           >
+            {/* Honeypot checkbox for spam protection */}
+            <input
+              type="checkbox"
+              name="botcheck"
+              checked={botcheck}
+              onChange={(e) => setBotcheck(e.target.checked)}
+              style={{ display: 'none' }}
+              tabIndex={-1}
+              autoComplete="off"
+            />
+
             <div>
               <input
                 type="text"
@@ -243,14 +394,34 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="w-full py-4 rounded-lg text-black font-bold uppercase tracking-[0.15em] text-sm transition-all duration-300 hover:brightness-110 hover:shadow-[0_0_25px_rgba(170,255,0,0.3)]"
+              disabled={isSubmitting}
+              className={`w-full py-4 rounded-lg font-bold uppercase tracking-[0.15em] text-sm transition-all duration-300 ${
+                isSubmitting
+                  ? 'opacity-70 cursor-not-allowed'
+                  : 'hover:brightness-110 hover:shadow-[0_0_25px_rgba(170,255,0,0.3)] cursor-pointer'
+              }`}
               style={{
                 backgroundColor: '#AAFF00',
+                color: '#000000',
                 fontFamily: "'Oswald', sans-serif",
               }}
             >
-              SEND MESSAGE
+              {isSubmitting ? 'SENDING...' : 'SEND MESSAGE'}
             </button>
+
+            {status.message && (
+              <p
+                role="status"
+                aria-live="polite"
+                className="text-center text-sm font-medium pt-1"
+                style={{
+                  color: status.type === 'success' ? '#AAFF00' : '#FF4D4D',
+                  fontFamily: "'Inter', sans-serif",
+                }}
+              >
+                {status.message}
+              </p>
+            )}
           </form>
         </div>
       </div>

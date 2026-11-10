@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 // Inline SVG Social Icons
 const InstagramIcon = ({ size = 16 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -49,47 +49,113 @@ const trainers = [
   },
 ];
 
+const trainersList = [...trainers, ...trainers, ...trainers];
+
 export default function Trainers() {
   const sectionRef = useRef(null);
-  const headingRef = useRef(null);
-  const cardsRef = useRef([]);
+  const heading1ScrollRef = useRef(null);
+  const heading1EnterRef = useRef(null);
+  const heading2ScrollRef = useRef(null);
+  const heading2EnterRef = useRef(null);
+  const trackRef = useRef(null);
+
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const dragOffset = useRef(0);
+  const hasMoved = useRef(false);
+  const scrollProgress = useRef({ val: -35 });
+  const [cursorGrabbing, setCursorGrabbing] = useState(false);
+
+  const updateTransform = () => {
+    if (trackRef.current) {
+      trackRef.current.style.transform = `translate3d(calc(${scrollProgress.current.val}% + ${dragOffset.current}px), 0, 0)`;
+    }
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from(headingRef.current, {
-        y: 60,
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: headingRef.current,
-          start: 'top 85%',
-          toggleActions: 'play none none none',
-        },
+      // Heading entrance from corners
+      gsap.from(heading1EnterRef.current, {
+        x: -240, y: -80, opacity: 0, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 85%' },
+      });
+      gsap.from(heading2EnterRef.current, {
+        x: 240, y: 80, opacity: 0, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 85%' },
       });
 
-      gsap.from(cardsRef.current, {
-        y: 80,
-        opacity: 0,
-        duration: 0.7,
-        stagger: 0.15,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: cardsRef.current[0],
-          start: 'top 85%',
-          toggleActions: 'play none none none',
-        },
+      // Heading scroll exit & return
+      const headingScrollConfig = {
+        trigger: sectionRef.current, start: 'top top', end: 'bottom 40%', scrub: 1,
+      };
+      gsap.to(heading1ScrollRef.current, {
+        x: -280, y: -60, opacity: 0, ease: 'none', scrollTrigger: headingScrollConfig,
       });
+      gsap.to(heading2ScrollRef.current, {
+        x: 280, y: 60, opacity: 0, ease: 'none', scrollTrigger: headingScrollConfig,
+      });
+
+      // Horizontal scrub: moves left-to-right as the user scrolls down
+      gsap.fromTo(
+        scrollProgress.current,
+        { val: -35 },
+        {
+          val: 5,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1.2,
+            invalidateOnRefresh: true,
+            onUpdate: () => {
+              updateTransform();
+            },
+          },
+        }
+      );
     }, sectionRef);
+
+    updateTransform();
 
     return () => ctx.revert();
   }, []);
+
+  const handleDragStart = (clientX) => {
+    isDragging.current = true;
+    startX.current = clientX;
+    hasMoved.current = false;
+    setCursorGrabbing(true);
+  };
+
+  const handleDragMove = (clientX) => {
+    if (!isDragging.current) return;
+    const diff = clientX - startX.current;
+    if (Math.abs(diff) > 4) {
+      hasMoved.current = true;
+    }
+    dragOffset.current += diff;
+    startX.current = clientX;
+    updateTransform();
+  };
+
+  const handleDragEnd = () => {
+    isDragging.current = false;
+    setCursorGrabbing(false);
+  };
+
+  const handleClickCapture = (e) => {
+    if (hasMoved.current) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  };
 
   return (
     <section
       id="trainers"
       ref={sectionRef}
-      className="relative bg-[#0A0A0A] py-20 md:py-28 lg:py-32 overflow-hidden"
+      className="relative scroll-mt-24 sm:scroll-mt-28 md:scroll-mt-32 bg-[#0A0A0A] py-20 md:py-28 lg:py-32 overflow-hidden"
     >
       {/* Subtle background accent */}
       <div className="absolute inset-0 pointer-events-none">
@@ -98,25 +164,56 @@ export default function Trainers() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading */}
-        <div ref={headingRef} className="text-center mb-14 md:mb-20">
+        <div className="text-center mb-14 md:mb-16 overflow-visible select-none">
           <h2
             className="text-4xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight leading-tight"
             style={{ fontFamily: "'Oswald', sans-serif" }}
           >
-            <span className="text-white">OUR EXPERT</span>
-            <br />
-            <span className="text-[#AAFF00]">TRAINERS</span>
+            <span className="block">
+              <span ref={heading1ScrollRef} className="block will-change-transform">
+                <span ref={heading1EnterRef} className="block text-white will-change-transform">
+                  OUR EXPERT
+                </span>
+              </span>
+            </span>
+            <span className="block mt-1">
+              <span ref={heading2ScrollRef} className="block will-change-transform">
+                <span ref={heading2EnterRef} className="block text-[#AAFF00] will-change-transform">
+                  TRAINERS
+                </span>
+              </span>
+            </span>
           </h2>
           <div className="mt-4 mx-auto w-16 h-1 bg-[#AAFF00]/60 rounded-full" />
         </div>
+      </div>
 
-        {/* Trainer Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-          {trainers.map((trainer, i) => (
+      {/* Horizontal Moving Cards Track (Left to Right on Scroll & Draggable with Cursor) */}
+      <div
+        className={`relative w-full overflow-hidden py-4 select-none ${
+          cursorGrabbing ? 'cursor-grabbing' : 'cursor-grab'
+        }`}
+        onMouseDown={(e) => handleDragStart(e.clientX)}
+        onMouseMove={(e) => handleDragMove(e.clientX)}
+        onMouseUp={handleDragEnd}
+        onMouseLeave={handleDragEnd}
+        onTouchStart={(e) => handleDragStart(e.touches[0].clientX)}
+        onTouchMove={(e) => handleDragMove(e.touches[0].clientX)}
+        onTouchEnd={handleDragEnd}
+        onClickCapture={handleClickCapture}
+      >
+        {/* Left & Right Edge Vignette Fades */}
+        <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-12 sm:w-28 bg-gradient-to-r from-[#0A0A0A] to-transparent z-10" />
+        <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 sm:w-28 bg-gradient-to-l from-[#0A0A0A] to-transparent z-10" />
+
+        <div
+          ref={trackRef}
+          className="flex gap-6 lg:gap-8 w-max will-change-transform px-4"
+        >
+          {trainersList.map((trainer, i) => (
             <div
-              key={trainer.name}
-              ref={(el) => (cardsRef.current[i] = el)}
-              className="group relative bg-[#111111] border border-[#1A1A1A] rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.03] hover:border-[#AAFF00]/50 hover:shadow-[0_0_30px_rgba(170,255,0,0.1)]"
+              key={`${trainer.name}-${i}`}
+              className="w-[280px] sm:w-[320px] shrink-0 group relative bg-[#111111] border border-[#1A1A1A] rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.03] hover:border-[#AAFF00]/50 hover:shadow-[0_0_30px_rgba(170,255,0,0.1)]"
             >
               {/* Trainer Image Placeholder */}
               <div

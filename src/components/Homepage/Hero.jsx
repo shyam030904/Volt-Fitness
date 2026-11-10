@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react';
-import { ChevronDown, Zap, ArrowRight } from 'lucide-react';
+import { ChevronDown, ArrowRight } from 'lucide-react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
   { value: '1000+', label: 'Members' },
@@ -11,8 +14,12 @@ const stats = [
 
 export default function Hero() {
   const sectionRef = useRef(null);
-  const headingLine1Ref = useRef(null);
-  const headingLine2Ref = useRef(null);
+  const unleashScrollRef = useRef(null);
+  const unleashEnterRef = useRef(null);
+  const yourScrollRef = useRef(null);
+  const yourEnterRef = useRef(null);
+  const powerScrollRef = useRef(null);
+  const powerEnterRef = useRef(null);
   const subtitleRef = useRef(null);
   const buttonsRef = useRef([]);
   const statsRef = useRef([]);
@@ -21,29 +28,42 @@ export default function Hero() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // 1. Initial entrance: each word transitions in from corners, then subtitle, buttons, stats
       const tl = gsap.timeline({
-        defaults: { ease: 'power4.out' },
-        delay: 0.3,
+        defaults: { ease: 'power3.out' },
+        delay: 0.2,
       });
 
-      // Heading lines slide up
-      tl.from(headingLine1Ref.current, {
-        y: 80,
+      // UNLEASH comes from top-left corner
+      tl.from(unleashEnterRef.current, {
+        x: -300,
+        y: -150,
         opacity: 0,
-        duration: 0.9,
-        skewY: 3,
+        duration: 1,
       })
+        // YOUR comes from top-right corner
         .from(
-          headingLine2Ref.current,
+          yourEnterRef.current,
           {
-            y: 80,
+            x: 300,
+            y: -150,
             opacity: 0,
-            duration: 0.9,
-            skewY: 3,
+            duration: 1,
           },
-          '-=0.6'
+          '-=0.8'
         )
-        // Subtitle fades in
+        // POWER comes from bottom-right corner
+        .from(
+          powerEnterRef.current,
+          {
+            x: 300,
+            y: 150,
+            opacity: 0,
+            duration: 1,
+          },
+          '-=0.8'
+        )
+        // Subtitle fades up
         .from(
           subtitleRef.current,
           {
@@ -51,7 +71,7 @@ export default function Hero() {
             opacity: 0,
             duration: 0.7,
           },
-          '-=0.4'
+          '-=0.5'
         )
         // Buttons stagger in
         .from(
@@ -84,6 +104,40 @@ export default function Hero() {
           },
           '-=0.2'
         );
+
+      // 2. Scroll exit & return (vice versa):
+      // When scrolling down, words move aside towards corners.
+      // When scrolling back up, words return into their exact place.
+      const scrollTriggerConfig = {
+        trigger: sectionRef.current,
+        start: 'top top',
+        end: 'bottom 40%',
+        scrub: 1,
+      };
+
+      gsap.to(unleashScrollRef.current, {
+        x: -350,
+        y: -120,
+        opacity: 0,
+        ease: 'none',
+        scrollTrigger: scrollTriggerConfig,
+      });
+
+      gsap.to(yourScrollRef.current, {
+        x: 300,
+        y: -120,
+        opacity: 0,
+        ease: 'none',
+        scrollTrigger: scrollTriggerConfig,
+      });
+
+      gsap.to(powerScrollRef.current, {
+        x: 350,
+        y: 120,
+        opacity: 0,
+        ease: 'none',
+        scrollTrigger: scrollTriggerConfig,
+      });
 
       // Floating geometric shapes continuous animation
       shapesRef.current.forEach((shape, i) => {
@@ -199,32 +253,28 @@ export default function Hero() {
 
       {/* === Main Content === */}
       <div className="relative z-10 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36 md:pt-40 pb-16 flex flex-col items-center text-center">
-        {/* Small tag */}
-        <div className="mb-6 flex items-center gap-2 px-3.5 sm:px-4 py-1.5 border border-[#AAFF00]/20 rounded-full bg-[#AAFF00]/5 max-w-full">
-          <Zap className="w-3.5 h-3.5 text-[#AAFF00] fill-[#AAFF00] shrink-0" />
-          <span
-            className="text-[11px] sm:text-xs tracking-[0.15em] sm:tracking-[0.2em] uppercase text-[#AAFF00] font-medium truncate"
-            style={{ fontFamily: "'Inter', sans-serif" }}
-          >
-            Premium Fitness Experience
+        {/* Heading with words flying in from corners */}
+        <h1 className="leading-[0.9] mb-6 overflow-visible select-none" style={{ fontFamily: "'Oswald', sans-serif" }}>
+          <span className="block text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-white tracking-tight">
+            <span ref={unleashScrollRef} className="block will-change-transform">
+              <span ref={unleashEnterRef} className="block will-change-transform">
+                UNLEASH
+              </span>
+            </span>
           </span>
-        </div>
-
-        {/* Heading */}
-        <h1 className="leading-[0.9] mb-6" style={{ fontFamily: "'Oswald', sans-serif" }}>
-          <span
-            ref={headingLine1Ref}
-            className="block text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-white tracking-tight"
-          >
-            UNLEASH
-          </span>
-          <span
-            ref={headingLine2Ref}
-            className="block text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight"
-          >
-            <span className="text-white">YOUR </span>
-            <span className="text-[#AAFF00] drop-shadow-[0_0_30px_rgba(170,255,0,0.3)]">
-              POWER
+          <span className="block text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight">
+            <span ref={yourScrollRef} className="inline-block mr-3 sm:mr-6 will-change-transform">
+              <span ref={yourEnterRef} className="inline-block text-white will-change-transform">
+                YOUR
+              </span>
+            </span>
+            <span ref={powerScrollRef} className="inline-block will-change-transform">
+              <span
+                ref={powerEnterRef}
+                className="inline-block text-[#AAFF00] drop-shadow-[0_0_30px_rgba(170,255,0,0.3)] will-change-transform"
+              >
+                POWER
+              </span>
             </span>
           </span>
         </h1>

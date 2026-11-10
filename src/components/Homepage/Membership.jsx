@@ -46,21 +46,33 @@ const plans = [
 
 export default function Membership() {
   const sectionRef = useRef(null);
-  const headingRef = useRef(null);
+  const heading1ScrollRef = useRef(null);
+  const heading1EnterRef = useRef(null);
+  const heading2ScrollRef = useRef(null);
+  const heading2EnterRef = useRef(null);
   const cardsRef = useRef([]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from(headingRef.current, {
-        y: 60,
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: headingRef.current,
-          start: 'top 85%',
-          toggleActions: 'play none none none',
-        },
+      // Heading entrance from corners
+      gsap.from(heading1EnterRef.current, {
+        x: -240, y: -80, opacity: 0, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 85%' },
+      });
+      gsap.from(heading2EnterRef.current, {
+        x: 240, y: 80, opacity: 0, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 85%' },
+      });
+
+      // Heading scroll exit & return
+      const headingScrollConfig = {
+        trigger: sectionRef.current, start: 'top top', end: 'bottom 40%', scrub: 1,
+      };
+      gsap.to(heading1ScrollRef.current, {
+        x: -280, y: -60, opacity: 0, ease: 'none', scrollTrigger: headingScrollConfig,
+      });
+      gsap.to(heading2ScrollRef.current, {
+        x: 280, y: 60, opacity: 0, ease: 'none', scrollTrigger: headingScrollConfig,
       });
 
       gsap.from(cardsRef.current, {
@@ -85,7 +97,7 @@ export default function Membership() {
     <section
       id="membership"
       ref={sectionRef}
-      className="relative bg-[#0A0A0A] py-20 md:py-28 lg:py-32 overflow-hidden"
+      className="relative scroll-mt-24 sm:scroll-mt-28 md:scroll-mt-32 bg-[#0A0A0A] py-20 md:py-28 lg:py-32 overflow-hidden"
     >
       {/* Background glow */}
       <div className="absolute inset-0 pointer-events-none">
@@ -94,14 +106,25 @@ export default function Membership() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading */}
-        <div ref={headingRef} className="text-center mb-14 md:mb-20">
+        <div className="text-center mb-14 md:mb-20 overflow-visible select-none">
           <h2
             className="text-4xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight leading-tight"
             style={{ fontFamily: "'Oswald', sans-serif" }}
           >
-            <span className="text-white">MEMBERSHIP</span>
-            <br />
-            <span className="text-[#AAFF00]">PLANS</span>
+            <span className="block">
+              <span ref={heading1ScrollRef} className="block will-change-transform">
+                <span ref={heading1EnterRef} className="block text-white will-change-transform">
+                  MEMBERSHIP
+                </span>
+              </span>
+            </span>
+            <span className="block mt-1">
+              <span ref={heading2ScrollRef} className="block will-change-transform">
+                <span ref={heading2EnterRef} className="block text-[#AAFF00] will-change-transform">
+                  PLANS
+                </span>
+              </span>
+            </span>
           </h2>
           <div className="mt-4 mx-auto w-16 h-1 bg-[#AAFF00]/60 rounded-full" />
         </div>
