@@ -131,7 +131,7 @@ export default function AboutSlideshow() {
     <>
       <div
         onClick={handleSlideshowClick}
-        className="group relative w-full h-[450px] sm:h-[520px] lg:h-[580px] xl:h-[620px] rounded-2xl sm:rounded-3xl overflow-hidden bg-[#111111] border border-[#222222] shadow-[0_15px_45px_rgba(0,0,0,0.6)] transition-all duration-500 hover:border-[#AAFF00]/50 hover:shadow-[0_0_45px_rgba(170,255,0,0.15)] select-none cursor-pointer"
+        className="group relative w-full h-[360px] sm:h-[480px] lg:h-[580px] xl:h-[620px] rounded-2xl sm:rounded-3xl overflow-hidden bg-[#111111] border border-[#222222] shadow-[0_15px_45px_rgba(0,0,0,0.6)] transition-all duration-500 hover:border-[#AAFF00]/50 hover:shadow-[0_0_45px_rgba(170,255,0,0.15)] select-none cursor-pointer"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}

@@ -69,13 +69,15 @@ export default function Programs() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
       // Heading entrance from corners
       gsap.from(heading1EnterRef.current, {
-        x: -240, y: -80, opacity: 0, duration: 0.9, ease: 'power3.out',
+        x: isMobile ? -60 : -240, y: isMobile ? -30 : -80, opacity: 0, duration: 0.9, ease: 'power3.out',
         scrollTrigger: { trigger: sectionRef.current, start: 'top 85%' },
       });
       gsap.from(heading2EnterRef.current, {
-        x: 240, y: 80, opacity: 0, duration: 0.9, ease: 'power3.out',
+        x: isMobile ? 60 : 240, y: isMobile ? 30 : 80, opacity: 0, duration: 0.9, ease: 'power3.out',
         scrollTrigger: { trigger: sectionRef.current, start: 'top 85%' },
       });
 
@@ -161,14 +163,14 @@ export default function Programs() {
     <section
       id="programs"
       ref={sectionRef}
-      className="relative scroll-mt-24 sm:scroll-mt-28 md:scroll-mt-32 bg-[#0A0A0A] py-24 md:py-32 overflow-hidden"
+      className="relative scroll-mt-24 sm:scroll-mt-28 md:scroll-mt-32 bg-[#0A0A0A] pt-8 pb-20 sm:pt-14 sm:pb-24 md:pt-20 md:pb-32 overflow-hidden w-full max-w-full"
     >
       {/* Decorative glow */}
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-[#AAFF00]/[0.03] blur-[140px] pointer-events-none" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+      <div className="relative z-10 max-w-7xl w-full mx-auto px-5 sm:px-8 lg:px-12">
         {/* Heading */}
-        <div className="mb-14 text-center overflow-visible select-none">
+        <div className="mb-8 sm:mb-12 md:mb-14 text-center overflow-hidden md:overflow-visible select-none">
           <h2 className="font-['Oswald',sans-serif] text-5xl sm:text-6xl lg:text-7xl font-bold uppercase leading-[1.05] tracking-tight">
             <span className="block">
               <span ref={heading1ScrollRef} className="block will-change-transform">
@@ -185,7 +187,7 @@ export default function Programs() {
               </span>
             </span>
           </h2>
-          <p className="mt-5 max-w-xl mx-auto font-['Inter',sans-serif] text-neutral-400 text-base sm:text-lg leading-relaxed">
+          <p className="mt-3 sm:mt-5 max-w-xl mx-auto font-['Inter',sans-serif] text-neutral-400 text-base sm:text-lg leading-relaxed">
             Signature training programs built by elite coaches to match every goal,
             every level, every ambition.
           </p>

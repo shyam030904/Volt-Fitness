@@ -96,6 +96,7 @@ function App() {
       )}
 
       <div
+        className="overflow-x-hidden w-full max-w-full"
         style={{
           opacity: introComplete ? 1 : 0,
           transition: 'opacity 0.5s ease-in-out',
@@ -103,7 +104,7 @@ function App() {
         }}
       >
         <Navbar currentPage={currentPage} onNavigate={navigateTo} />
-        <main>
+        <main className="overflow-x-hidden w-full max-w-full">
           {currentPage === 'gallery' ? (
             <GalleryPage onNavigateHome={() => navigateTo('home')} />
           ) : (

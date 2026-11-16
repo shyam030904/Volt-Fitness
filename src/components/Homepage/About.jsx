@@ -54,10 +54,12 @@ export default function About() {
         },
       });
 
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
       // Heading entrance from corners
       gsap.from(heading1EnterRef.current, {
-        x: -240,
-        y: -80,
+        x: isMobile ? -60 : -240,
+        y: isMobile ? -30 : -80,
         opacity: 0,
         duration: 0.9,
         ease: 'power3.out',
@@ -68,8 +70,8 @@ export default function About() {
       });
 
       gsap.from(heading2EnterRef.current, {
-        x: 240,
-        y: 80,
+        x: isMobile ? 60 : 240,
+        y: isMobile ? 30 : 80,
         opacity: 0,
         duration: 0.9,
         ease: 'power3.out',
@@ -162,12 +164,12 @@ export default function About() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative scroll-mt-24 sm:scroll-mt-28 md:scroll-mt-32 bg-[#0A0A0A] py-20 md:py-28 lg:py-32 overflow-hidden"
+      className="relative scroll-mt-24 sm:scroll-mt-28 md:scroll-mt-32 bg-[#0A0A0A] pt-16 pb-6 sm:pt-20 sm:pb-10 md:py-28 lg:py-32 overflow-hidden w-full max-w-full"
     >
       {/* Subtle radial glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full bg-[#AAFF00]/[0.03] blur-[160px] pointer-events-none" />
 
-      <div className="relative z-10 max-w-7xl xl:max-w-[1440px] 2xl:max-w-[1520px] mx-auto px-5 sm:px-8 lg:px-12">
+      <div className="relative z-10 max-w-7xl xl:max-w-[1440px] 2xl:max-w-[1520px] w-full mx-auto px-5 sm:px-8 lg:px-12">
         {/* Accent line */}
         <div
           ref={accentRef}
@@ -180,7 +182,7 @@ export default function About() {
           <div className="lg:col-span-4 flex flex-col justify-start">
             {/* Heading with corner entrance & scroll exit/return */}
             <h2
-              className="font-['Oswald',sans-serif] text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold uppercase leading-[1.05] tracking-tight mb-8 sm:mb-10 overflow-visible select-none"
+              className="font-['Oswald',sans-serif] text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold uppercase leading-[1.05] tracking-tight mb-8 sm:mb-10 overflow-hidden md:overflow-visible select-none"
             >
               <span className="block">
                 <span ref={heading1ScrollRef} className="block will-change-transform">
@@ -233,7 +235,7 @@ export default function About() {
         </div>
 
         {/* Feature Grid below the main description & slideshow */}
-        <div className="mt-16 sm:mt-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="mt-8 sm:mt-14 md:mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {features.map((feat, i) => {
             const Icon = feat.icon;
             return (

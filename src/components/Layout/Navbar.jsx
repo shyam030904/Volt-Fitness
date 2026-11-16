@@ -257,8 +257,8 @@ export default function Navbar({ currentPage = 'home', onNavigate }) {
       {/* ================= RIGHT-SIDE MOBILE DRAWER ================= */}
       {/* Backdrop overlay */}
       <div
-        className={`lg:hidden fixed inset-0 z-[60] bg-black/75 backdrop-blur-sm transition-opacity duration-300 ${
-          isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        className={`lg:hidden fixed inset-0 z-[60] bg-black/75 backdrop-blur-sm transition-all duration-300 ${
+          isMobileMenuOpen ? 'opacity-100 pointer-events-auto visible' : 'opacity-0 pointer-events-none invisible'
         }`}
         onClick={() => setIsMobileMenuOpen(false)}
         aria-hidden="true"
@@ -267,8 +267,8 @@ export default function Navbar({ currentPage = 'home', onNavigate }) {
       {/* Slide-in drawer on the right side of the phone */}
       <aside
         aria-label="Mobile Navigation Drawer"
-        className={`lg:hidden fixed top-0 right-0 bottom-0 z-[70] w-[82vw] max-w-[320px] sm:max-w-[360px] bg-[#0A120C]/95 backdrop-blur-2xl border-l border-[#39FF14]/30 shadow-[-12px_0_40px_rgba(0,0,0,0.85),-2px_0_20px_rgba(57,255,20,0.18)] flex flex-col justify-between transition-transform duration-300 ease-out select-none ${
-          isMobileMenuOpen ? 'translate-x-0 pointer-events-auto' : 'translate-x-full pointer-events-none'
+        className={`lg:hidden fixed top-0 right-0 bottom-0 z-[70] w-[82vw] max-w-[320px] sm:max-w-[360px] bg-[#0A120C]/95 backdrop-blur-2xl border-l border-[#39FF14]/30 shadow-[-12px_0_40px_rgba(0,0,0,0.85),-2px_0_20px_rgba(57,255,20,0.18)] flex flex-col justify-between transition-all duration-300 ease-out select-none ${
+          isMobileMenuOpen ? 'translate-x-0 pointer-events-auto opacity-100 visible' : 'translate-x-full pointer-events-none opacity-0 invisible'
         }`}
       >
         {/* Drawer Header */}

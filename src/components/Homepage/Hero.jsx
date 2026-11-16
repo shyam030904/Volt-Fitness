@@ -34,10 +34,12 @@ export default function Hero() {
         delay: 0.2,
       });
 
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
       // UNLEASH comes from top-left corner
       tl.from(unleashEnterRef.current, {
-        x: -300,
-        y: -150,
+        x: isMobile ? -80 : -300,
+        y: isMobile ? -50 : -150,
         opacity: 0,
         duration: 1,
       })
@@ -45,8 +47,8 @@ export default function Hero() {
         .from(
           yourEnterRef.current,
           {
-            x: 300,
-            y: -150,
+            x: isMobile ? 80 : 300,
+            y: isMobile ? -50 : -150,
             opacity: 0,
             duration: 1,
           },
@@ -56,8 +58,8 @@ export default function Hero() {
         .from(
           powerEnterRef.current,
           {
-            x: 300,
-            y: 150,
+            x: isMobile ? 80 : 300,
+            y: isMobile ? 50 : 150,
             opacity: 0,
             duration: 1,
           },
@@ -254,7 +256,7 @@ export default function Hero() {
       {/* === Main Content === */}
       <div className="relative z-10 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36 md:pt-40 pb-16 flex flex-col items-center text-center">
         {/* Heading with words flying in from corners */}
-        <h1 className="leading-[0.9] mb-6 overflow-visible select-none" style={{ fontFamily: "'Oswald', sans-serif" }}>
+        <h1 className="leading-[0.9] mb-6 overflow-hidden md:overflow-visible select-none" style={{ fontFamily: "'Oswald', sans-serif" }}>
           <span className="block text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-white tracking-tight">
             <span ref={unleashScrollRef} className="block will-change-transform">
               <span ref={unleashEnterRef} className="block will-change-transform">

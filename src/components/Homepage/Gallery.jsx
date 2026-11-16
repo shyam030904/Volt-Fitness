@@ -45,19 +45,21 @@ export default function Gallery({ onExplore }) {
 
     if (prefersReducedMotion) return;
 
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
     const ctx = gsap.context(() => {
       // Heading entrance from corners
       gsap.from(heading1EnterRef.current, {
-        x: -240,
-        y: -80,
+        x: isMobile ? -60 : -240,
+        y: isMobile ? -30 : -80,
         opacity: 0,
         duration: 0.9,
         ease: 'power3.out',
         scrollTrigger: { trigger: sectionRef.current, start: 'top 85%' },
       });
       gsap.from(heading2EnterRef.current, {
-        x: 240,
-        y: 80,
+        x: isMobile ? 60 : 240,
+        y: isMobile ? 30 : 80,
         opacity: 0,
         duration: 0.9,
         ease: 'power3.out',

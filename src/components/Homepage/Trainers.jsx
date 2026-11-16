@@ -123,14 +123,15 @@ export default function Trainers() {
   };
 
   useEffect(() => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     const ctx = gsap.context(() => {
       // Heading entrance from corners
       gsap.from(heading1EnterRef.current, {
-        x: -240, y: -80, opacity: 0, duration: 0.9, ease: 'power3.out',
+        x: isMobile ? -60 : -240, y: isMobile ? -30 : -80, opacity: 0, duration: 0.9, ease: 'power3.out',
         scrollTrigger: { trigger: sectionRef.current, start: 'top 85%' },
       });
       gsap.from(heading2EnterRef.current, {
-        x: 240, y: 80, opacity: 0, duration: 0.9, ease: 'power3.out',
+        x: isMobile ? 60 : 240, y: isMobile ? 30 : 80, opacity: 0, duration: 0.9, ease: 'power3.out',
         scrollTrigger: { trigger: sectionRef.current, start: 'top 85%' },
       });
 
@@ -205,16 +206,16 @@ export default function Trainers() {
     <section
       id="trainers"
       ref={sectionRef}
-      className="relative scroll-mt-24 sm:scroll-mt-28 md:scroll-mt-32 bg-[#0A0A0A] py-20 md:py-28 lg:py-32 overflow-hidden"
+      className="relative scroll-mt-24 sm:scroll-mt-28 md:scroll-mt-32 bg-[#0A0A0A] py-20 md:py-28 lg:py-32 overflow-hidden w-full max-w-full"
     >
       {/* Subtle background accent */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#AAFF00]/[0.03] rounded-full blur-[120px]" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading */}
-        <div className="text-center mb-14 md:mb-16 overflow-visible select-none">
+        <div className="text-center mb-14 md:mb-16 overflow-hidden md:overflow-visible select-none">
           <h2
             className="text-4xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight leading-tight"
             style={{ fontFamily: "'Oswald', sans-serif" }}

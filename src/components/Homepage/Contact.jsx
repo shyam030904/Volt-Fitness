@@ -169,14 +169,15 @@ export default function Contact() {
   };
 
   useEffect(() => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     const ctx = gsap.context(() => {
       // Heading entrance from corners
       gsap.from(heading1EnterRef.current, {
-        x: -240, y: -80, opacity: 0, duration: 0.9, ease: 'power3.out',
+        x: isMobile ? -60 : -240, y: isMobile ? -30 : -80, opacity: 0, duration: 0.9, ease: 'power3.out',
         scrollTrigger: { trigger: sectionRef.current, start: 'top 85%' },
       });
       gsap.from(heading2EnterRef.current, {
-        x: 240, y: 80, opacity: 0, duration: 0.9, ease: 'power3.out',
+        x: isMobile ? 60 : 240, y: isMobile ? 30 : 80, opacity: 0, duration: 0.9, ease: 'power3.out',
         scrollTrigger: { trigger: sectionRef.current, start: 'top 85%' },
       });
 
@@ -230,7 +231,7 @@ export default function Contact() {
       style={{ backgroundColor: '#0A0A0A' }}
     >
       {/* Section Heading */}
-      <div className="max-w-7xl mx-auto mb-10 md:mb-14 overflow-visible select-none">
+      <div className="max-w-7xl mx-auto mb-10 md:mb-14 overflow-hidden md:overflow-visible select-none">
         <h2
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold uppercase leading-[0.9] tracking-tight"
           style={{ fontFamily: "'Oswald', sans-serif" }}
