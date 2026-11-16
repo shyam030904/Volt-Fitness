@@ -1,33 +1,9 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Trophy, Dumbbell, Users, Clock } from 'lucide-react';
 import AboutSlideshow from './AboutSlideshow';
 
 gsap.registerPlugin(ScrollTrigger);
-
-const features = [
-  {
-    icon: Trophy,
-    title: 'Championship Training',
-    desc: 'Programs designed by elite-level coaches to push your limits.',
-  },
-  {
-    icon: Dumbbell,
-    title: 'Premium Equipment',
-    desc: 'State-of-the-art machines and free weights from top brands.',
-  },
-  {
-    icon: Users,
-    title: 'Expert Community',
-    desc: 'Train alongside driven athletes who elevate each other.',
-  },
-  {
-    icon: Clock,
-    title: '24/7 Access',
-    desc: 'No excuses — the gym is open whenever you are ready.',
-  },
-];
 
 export default function About() {
   const sectionRef = useRef(null);
@@ -37,7 +13,6 @@ export default function About() {
   const heading2EnterRef = useRef(null);
   const textRef = useRef(null);
   const slideshowRef = useRef(null);
-  const cardsRef = useRef([]);
   const quoteRef = useRef(null);
   const accentRef = useRef(null);
 
@@ -131,20 +106,6 @@ export default function About() {
         });
       }
 
-      if (cardsRef.current.length > 0 && cardsRef.current[0]) {
-        gsap.from(cardsRef.current, {
-          y: 60,
-          opacity: 0,
-          duration: 0.7,
-          stagger: 0.15,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: cardsRef.current[0],
-            start: 'top 85%',
-          },
-        });
-      }
-
       gsap.from(quoteRef.current, {
         y: 40,
         opacity: 0,
@@ -232,30 +193,6 @@ export default function About() {
           <div ref={slideshowRef} className="lg:col-span-8 w-full lg:-mt-2">
             <AboutSlideshow />
           </div>
-        </div>
-
-        {/* Feature Grid below the main description & slideshow */}
-        <div className="mt-8 sm:mt-14 md:mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {features.map((feat, i) => {
-            const Icon = feat.icon;
-            return (
-              <div
-                key={feat.title}
-                ref={(el) => (cardsRef.current[i] = el)}
-                className="group bg-[#111111] border border-[#1A1A1A] rounded-2xl p-5 sm:p-6 flex flex-col items-start gap-4 transition-all duration-300 hover:border-[#AAFF00]/30 hover:shadow-[0_0_30px_rgba(170,255,0,0.06)] hover:-translate-y-1"
-              >
-                <div className="w-12 h-12 rounded-xl bg-[#AAFF00]/10 flex items-center justify-center transition-colors duration-300 group-hover:bg-[#AAFF00]/20">
-                  <Icon className="w-6 h-6 text-[#AAFF00]" strokeWidth={1.8} />
-                </div>
-                <h3 className="font-['Oswald',sans-serif] text-lg text-white uppercase tracking-wide leading-snug">
-                  {feat.title}
-                </h3>
-                <p className="font-['Inter',sans-serif] text-sm text-neutral-500 leading-relaxed">
-                  {feat.desc}
-                </p>
-              </div>
-            );
-          })}
         </div>
       </div>
     </section>
