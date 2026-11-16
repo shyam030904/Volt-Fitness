@@ -26,3 +26,7 @@ dist-ssr
 .env
 .env.*
 !.env.example
+
+# Raw video recordings (>100MB exceeds GitHub push limit)
+*.MOV
+*.mov

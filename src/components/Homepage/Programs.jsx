@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Zap, Flame, Target, UserCheck } from 'lucide-react';
+import { Zap, Flame, Target, UserCheck, Music } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -26,6 +26,13 @@ const programs = [
     desc: 'Functional fitness at its peak — varied, high-intensity movements that build total-body athleticism.',
     duration: '50 min',
     sessions: '5x / week',
+  },
+  {
+    icon: Music,
+    title: 'Zumba Fitness',
+    desc: 'High-energy dance workouts blending upbeat rhythms with dynamic cardio to torch calories and elevate your mood.',
+    duration: '50 min',
+    sessions: '3x / week',
   },
   {
     icon: UserCheck,
@@ -243,15 +250,6 @@ export default function Programs() {
                     {prog.sessions}
                   </span>
                 </div>
-
-                {/* Learn More */}
-                <a
-                  href="#contact"
-                  className="inline-flex items-center gap-1 font-['Inter',sans-serif] text-sm text-[#AAFF00] font-medium tracking-wide transition-all duration-200 group-hover:gap-2 mt-1"
-                >
-                  Learn More
-                  <span className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
-                </a>
               </div>
             );
           })}
@@ -259,6 +257,69 @@ export default function Programs() {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+        {/* Dedicated Zumba Spotlight Section */}
+        <div className="mt-12 sm:mt-16 relative rounded-2xl bg-gradient-to-b from-[#141414] to-[#0D0D0D] border border-[#AAFF00]/25 p-6 sm:p-10 overflow-hidden shadow-[0_0_50px_rgba(170,255,0,0.05)]">
+          {/* Top highlight & glow */}
+          <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-[#AAFF00]/[0.06] blur-[90px] pointer-events-none" />
+          <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#AAFF00] to-transparent" />
+
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-7">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#AAFF00]/10 border border-[#AAFF00]/30 text-xs font-bold uppercase tracking-wider text-[#AAFF00] mb-4">
+                <Music className="w-3.5 h-3.5" />
+                <span>High-Energy Every Sunday</span>
+              </div>
+
+              <h3 className="font-['Oswald',sans-serif] text-3xl sm:text-4xl lg:text-5xl font-bold uppercase text-white tracking-tight leading-tight">
+                Zumba <span className="text-[#AAFF00]">Fitness Party</span>
+              </h3>
+
+              <p className="mt-4 font-['Inter',sans-serif] text-sm sm:text-base text-neutral-300 leading-relaxed max-w-2xl">
+                Ditch the boring routine and join the ultimate fitness party! Our Zumba sessions fuse infectious Latin and international beats with interval dance choreography to torch calories while having non-stop fun.
+              </p>
+
+              {/* Highlights Grid */}
+              <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div className="bg-black/40 border border-neutral-800/80 rounded-xl p-3 text-center">
+                  <div className="font-['Oswald',sans-serif] text-lg font-bold text-[#AAFF00]">500-700</div>
+                  <div className="text-[11px] font-['Inter',sans-serif] text-neutral-400 uppercase tracking-wider mt-0.5">Kcal / Session</div>
+                </div>
+                <div className="bg-black/40 border border-neutral-800/80 rounded-xl p-3 text-center">
+                  <div className="font-['Oswald',sans-serif] text-lg font-bold text-[#AAFF00]">ALL LEVELS</div>
+                  <div className="text-[11px] font-['Inter',sans-serif] text-neutral-400 uppercase tracking-wider mt-0.5">Beginner Friendly</div>
+                </div>
+                <div className="bg-black/40 border border-neutral-800/80 rounded-xl p-3 text-center">
+                  <div className="font-['Oswald',sans-serif] text-lg font-bold text-[#AAFF00]">LATIN & EDM</div>
+                  <div className="text-[11px] font-['Inter',sans-serif] text-neutral-400 uppercase tracking-wider mt-0.5">High BPM Beats</div>
+                </div>
+                <div className="bg-black/40 border border-neutral-800/80 rounded-xl p-3 text-center">
+                  <div className="font-['Oswald',sans-serif] text-lg font-bold text-[#AAFF00]">CERTIFIED</div>
+                  <div className="text-[11px] font-['Inter',sans-serif] text-neutral-400 uppercase tracking-wider mt-0.5">Dance Coaches</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-5 flex flex-col items-start lg:items-end justify-center gap-4 border-t lg:border-t-0 lg:border-l border-neutral-800/80 pt-6 lg:pt-0 lg:pl-8">
+              <div className="space-y-2.5 text-left w-full">
+                <div className="flex items-center gap-2 text-xs font-['Inter',sans-serif] text-neutral-300">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#AAFF00]" />
+                  <span>Full-body aerobic conditioning & core toning</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs font-['Inter',sans-serif] text-neutral-300">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#AAFF00]" />
+                  <span>Stress relief, dopamine boost & stamina</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs font-['Inter',sans-serif] text-neutral-300">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#AAFF00]" />
+                  <span>Electrifying group vibes with lights & music</span>
+                </div>
+              </div>
+
+             
+            </div>
+          </div>
+        </div>
+
         {/* Bottom CTA */}
         <div
           ref={ctaRef}

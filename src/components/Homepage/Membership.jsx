@@ -75,19 +75,20 @@ export default function Membership() {
         x: 280, y: 60, opacity: 0, ease: 'none', scrollTrigger: headingScrollConfig,
       });
 
-      gsap.from(cardsRef.current, {
-        y: 80,
-        opacity: 0,
-        scale: 0.95,
-        duration: 0.7,
-        stagger: 0.15,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: cardsRef.current[0],
-          start: 'top 85%',
-          toggleActions: 'play none none none',
-        },
-      });
+      const cards = cardsRef.current.filter(Boolean);
+      if (cards.length > 0) {
+        gsap.from(cards, {
+          y: 40,
+          duration: 0.7,
+          stagger: 0.12,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          },
+        });
+      }
     }, sectionRef);
 
     return () => ctx.revert();

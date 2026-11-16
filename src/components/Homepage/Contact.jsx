@@ -406,7 +406,7 @@ export default function Contact() {
                 fontFamily: "'Oswald', sans-serif",
               }}
             >
-              {isSubmitting ? 'SENDING...' : 'SEND MESSAGE'}
+              {isSubmitting ? 'SENDING...' : 'Book Your Visit'}
             </button>
 
             {status.message && (

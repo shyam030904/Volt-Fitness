@@ -20,33 +20,83 @@ gsap.registerPlugin(ScrollTrigger);
 
 const trainers = [
   {
-    name: 'Alex "Thunder" Reeves',
-    initials: 'AR',
-    title: 'Head Strength Coach',
-    experience: '12 Years Experience',
+    name: 'Abhijeet Anil Kadam',
+    image: '/Trainers/1.Abhijeet.jpeg',
+    initials: 'AK',
+    title: 'Strength Coach',
+    experience: '5 Years Experience',
     gradient: 'from-[#AAFF00]/20 via-[#0A0A0A] to-[#111111]',
   },
   {
-    name: 'Priya Sharma',
-    initials: 'PS',
-    title: 'Yoga & Wellness Director',
+    name: 'Rupesh Bhikaji Kadam',
+    image: '/Trainers/2.Rupesh.jpeg',
+    title: 'Strength Coach',
+    experience: '12 Years Experience',
+    gradient: 'from-[#AAFF00]/15 via-[#141414] to-[#111111]',
+  },
+  {
+    name: 'Amit Anant Shinde',
+    image: '/Trainers/3.Amit.jpeg',
+    title: 'Strength Coach',
+    experience: '15 Years Experience',
+    gradient: 'from-[#AAFF00]/20 via-[#0A0A0A] to-[#111111]',
+  },
+  {
+    name: 'Vaibhav Arun Hirbhagat',
+    image: '/Trainers/4.Vaibhav.jpeg',
+    title: 'Strength Coach',
+    experience: '6 Years Experience',
+    gradient: 'from-[#AAFF00]/15 via-[#141414] to-[#111111]',
+  },
+  {
+    name: 'Sachin Yashwant Kocharekar',
+    image: '/Trainers/5.Sachin.jpeg',
+    
+    title: 'Strength Coach',
     experience: '8 Years Experience',
     gradient: 'from-[#AAFF00]/15 via-[#141414] to-[#111111]',
   },
   {
-    name: 'Marcus "Iron" Johnson',
-    initials: 'MJ',
-    title: 'CrossFit Lead',
-    experience: '10 Years Experience',
-    gradient: 'from-[#AAFF00]/20 via-[#0A0A0A] to-[#111111]',
-  },
-  {
-    name: 'Sophia Chen',
-    initials: 'SC',
-    title: 'HIIT & Cardio Specialist',
-    experience: '6 Years Experience',
+    name: 'Rohit Sugandh Dinga',
+    image: '/Trainers/6.Rohit.jpeg',
+   
+    title: 'Strength Coach',
+    experience: '1 Years Experience',
     gradient: 'from-[#AAFF00]/15 via-[#141414] to-[#111111]',
   },
+  {
+    name: 'Ramesh Ranjeet Singh',
+    image: '/Trainers/7.Ramesh.jpeg',
+    
+    title: 'Strength Coach',
+    experience: '15 Years Experience',
+    gradient: 'from-[#AAFF00]/15 via-[#141414] to-[#111111]',
+  },
+  {
+    name: 'Sandeep Soban Rawat',
+    image: '/Trainers/8.Sandeep.jpeg',
+    
+    title: 'Strength Coach',
+    experience: '10 Years Experience',
+    gradient: 'from-[#AAFF00]/15 via-[#141414] to-[#111111]',
+  },
+  {
+    name: 'Tejas Kadam',
+    image: '/Trainers/9.Tejas.jpeg',
+    
+    title: 'Strength Coach',
+    experience: '4 Years Experience',
+    gradient: 'from-[#AAFF00]/15 via-[#141414] to-[#111111]',
+  },
+  {
+    name: 'Anand Wagh',
+    image: '/Trainers/10.Anand.jpeg',
+    
+    title: 'Strength Coach',
+    experience: '12 Years Experience',
+    gradient: 'from-[#AAFF00]/15 via-[#141414] to-[#111111]',
+  },
+
 ];
 
 const trainersList = [...trainers, ...trainers, ...trainers];
@@ -215,30 +265,42 @@ export default function Trainers() {
               key={`${trainer.name}-${i}`}
               className="w-[280px] sm:w-[320px] shrink-0 group relative bg-[#111111] border border-[#1A1A1A] rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.03] hover:border-[#AAFF00]/50 hover:shadow-[0_0_30px_rgba(170,255,0,0.1)]"
             >
-              {/* Trainer Image Placeholder */}
+              {/* Trainer Image */}
               <div
                 className={`relative h-72 sm:h-80 bg-gradient-to-b ${trainer.gradient} flex items-center justify-center overflow-hidden`}
               >
-                {/* Decorative pattern overlay */}
-                <div
-                  className="absolute inset-0 opacity-10"
-                  style={{
-                    backgroundImage:
-                      'radial-gradient(circle at 2px 2px, #AAFF00 1px, transparent 0)',
-                    backgroundSize: '24px 24px',
-                  }}
-                />
+                {trainer.image ? (
+                  <img
+                    src={trainer.image}
+                    alt={trainer.name}
+                    draggable="false"
+                    loading="lazy"
+                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105 pointer-events-none"
+                  />
+                ) : (
+                  <>
+                    {/* Decorative pattern overlay */}
+                    <div
+                      className="absolute inset-0 opacity-10"
+                      style={{
+                        backgroundImage:
+                          'radial-gradient(circle at 2px 2px, #AAFF00 1px, transparent 0)',
+                        backgroundSize: '24px 24px',
+                      }}
+                    />
 
-                {/* Initials */}
-                <span
-                  className="relative text-6xl sm:text-7xl font-bold text-[#AAFF00]/30 group-hover:text-[#AAFF00]/50 transition-colors duration-500 select-none"
-                  style={{ fontFamily: "'Oswald', sans-serif" }}
-                >
-                  {trainer.initials}
-                </span>
+                    {/* Initials */}
+                    <span
+                      className="relative text-6xl sm:text-7xl font-bold text-[#AAFF00]/30 group-hover:text-[#AAFF00]/50 transition-colors duration-500 select-none"
+                      style={{ fontFamily: "'Oswald', sans-serif" }}
+                    >
+                      {trainer.initials}
+                    </span>
+                  </>
+                )}
 
                 {/* Bottom fade */}
-                <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#111111] to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#111111] via-[#111111]/50 to-transparent pointer-events-none" />
               </div>
 
               {/* Card Content */}
@@ -262,23 +324,7 @@ export default function Trainers() {
                   {trainer.experience}
                 </p>
 
-                {/* Social Icons */}
-                <div className="flex gap-3 mt-4 pt-4 border-t border-[#1A1A1A]">
-                  <a
-                    href="#"
-                    aria-label={`${trainer.name} Instagram`}
-                    className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-white/50 hover:bg-[#AAFF00]/10 hover:text-[#AAFF00] transition-all duration-300"
-                  >
-                    <InstagramIcon size={16} />
-                  </a>
-                  <a
-                    href="#"
-                    aria-label={`${trainer.name} Twitter`}
-                    className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-white/50 hover:bg-[#AAFF00]/10 hover:text-[#AAFF00] transition-all duration-300"
-                  >
-                    <TwitterIcon size={16} />
-                  </a>
-                </div>
+              
               </div>
             </div>
           ))}

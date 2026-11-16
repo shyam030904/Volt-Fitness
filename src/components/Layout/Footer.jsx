@@ -46,7 +46,7 @@ export default function Footer() {
           {/* Column 1 - Brand */}
           <div className="max-w-md">
             <div className="flex items-center gap-1 mb-3">
-              <span className="text-xl">⚡</span>
+              <span className="text-xl"></span>
               <h3
                 className="text-xl font-bold uppercase tracking-wider text-white"
                 style={{ fontFamily: "'Oswald', sans-serif" }}
@@ -156,7 +156,7 @@ export default function Footer() {
             className="text-gray-600 text-xs"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
-            Designed with ⚡
+            Designed By Shyam Yadav
           </p>
         </div>
       </div>

@@ -292,7 +292,7 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row items-center gap-4 mb-14 md:mb-20 w-full sm:w-auto max-w-xs sm:max-w-none">
           <a
             ref={(el) => (buttonsRef.current[0] = el)}
-            href="#membership"
+            href="#contact"
             className="w-full sm:w-auto justify-center group flex items-center gap-2 px-8 py-3.5 bg-[#AAFF00] text-black text-sm font-bold tracking-wider uppercase rounded-sm hover:bg-[#c4ff4d] hover:shadow-[0_0_30px_rgba(170,255,0,0.35)] transition-all duration-300"
             style={{ fontFamily: "'Oswald', sans-serif" }}
           >
