@@ -27,7 +27,7 @@ const contactInfo = [
   {
     icon: Clock,
     label: 'Hours',
-    value: 'Mon-Sat: 5:00 AM - 12:00 PM\nSunday: 5:30 AM - 11:59 am',
+    value: 'Mon-Sat: 5:30 AM - 11:59 PM\nSunday: 7:30 AM - 12.59 PM',
   },
 ];
 

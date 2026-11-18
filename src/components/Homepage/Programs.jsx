@@ -28,13 +28,6 @@ const programs = [
     sessions: '5x / week',
   },
   {
-    icon: Music,
-    title: 'Zumba Fitness',
-    desc: 'High-energy dance workouts blending upbeat rhythms with dynamic cardio to torch calories and elevate your mood.',
-    duration: '50 min',
-    sessions: '3x / week',
-  },
-  {
     icon: UserCheck,
     title: 'Personal Training',
     desc: 'One-on-one coaching tailored to your goals, body, and schedule — results guaranteed.',

@@ -14,12 +14,6 @@ const FacebookIcon = ({ size = 18 }) => (
   </svg>
 );
 
-const TwitterIcon = ({ size = 18 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
-  </svg>
-);
-
 const YoutubeIcon = ({ size = 18 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/>
@@ -28,10 +22,21 @@ const YoutubeIcon = ({ size = 18 }) => (
 );
 
 const socialLinks = [
-  { icon: InstagramIcon, label: 'Instagram' },
-  { icon: FacebookIcon, label: 'Facebook' },
-  { icon: TwitterIcon, label: 'Twitter' },
-  { icon: YoutubeIcon, label: 'Youtube' },
+  {
+    icon: InstagramIcon,
+    label: 'Instagram',
+    href: 'https://www.instagram.com/voltfitness_bhandup?utm_source=ig_web_button_share_sheet&obrf=ZDNlZDc0MzIxNw==',
+  },
+  {
+    icon: FacebookIcon,
+    label: 'Facebook',
+    href: 'https://www.facebook.com/profile.php?id=61554185656453',
+  },
+  {
+    icon: YoutubeIcon,
+    label: 'Youtube',
+    href: 'https://www.youtube.com/@voltfitnessbhandup7879',
+  },
 ];
 
 export default function Footer() {
@@ -69,7 +74,9 @@ export default function Footer() {
                 return (
                   <a
                     key={social.label}
-                    href="https://www.instagram.com/voltfitness_bhandup?utm_source=ig_web_button_share_sheet&obrf=ZDNlZDc0MzIxNw=="
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     aria-label={social.label}
                     className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-500 transition-all duration-300 hover:text-[#AAFF00] hover:bg-[#AAFF00]/10"
                     style={{
