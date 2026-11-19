@@ -106,7 +106,6 @@ export default function Navbar({ currentPage = 'home', onNavigate }) {
                 alt="Volt Fitness Logo"
                 className="w-auto h-8 sm:h-12 max-w-[125px] sm:max-w-[185px] object-contain transition-transform duration-300 group-hover:scale-105"
                 style={{
-                  mixBlendMode: 'screen',
                   filter: 'drop-shadow(0 0 8px rgba(57, 255, 20, 0.4))',
                 }}
               />
@@ -283,7 +282,6 @@ export default function Navbar({ currentPage = 'home', onNavigate }) {
               alt="Volt Fitness Logo"
               className="w-auto h-7 object-contain"
               style={{
-                mixBlendMode: 'screen',
                 filter: 'drop-shadow(0 0 6px rgba(57, 255, 20, 0.4))',
               }}
             />
